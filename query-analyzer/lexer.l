@@ -5,32 +5,36 @@ extern int yylval;
 
 %%
 
-[a-zA-Z0-9]+[\.csv]                 { FILE_NAME; }
-get | select | search for | find    { VERB; }
-in | at | from                      { PREP; }
-with | where                        { COND; }
+[ \t] ;             /* ignore whitespace */ 
 
-[0-9]+                              { NUM; }
-[a-zA-Z0-9]+                        { COLUMN; }
+"get" | 
+"select" | 
+"look for" | 
+"find"                          { return VERB; }
 
-is more than | 
-is greater than | 
-is lower than | 
-is less than | 
-is lesser than | 
-is equal to | 
-is equals | 
-is at least | 
-is at most | 
-is greater or equal to | 
-is lower or equal to                { COMP; }
+"in" | 
+"at" | 
+"from"                          { return PREP; }
 
-and | or                            { LOGICO; }
+"with" |
+"where"                         { return COND_BEGIN; }
 
-[0-9]+				{ yylval = atoi(yytext); return NUMBER; }
-[a-z]				{ yylval = yytext[0] - 'a'; return NAME; }
-[ \t] ; 			/* ignore whitespace */
-\n return 0; 		/* logical EOF */
+"is more than" | 
+"is greater than" | 
+"is lower than" | 
+"is less than" | 
+"is lesser than" | 
+"is equal to" | 
+"is equals" | 
+"is at least" | 
+"is at most" | 
+"is greater or equal to" | 
+"is lower or equal to"          { return COMPARATOR; }
+
+[a-zA-Z0-9]+\.csv               { return FILENAME; }
+[0-9]+                          { yylval = atoi(yytext); return NUMBER; }
+[a-zA-Z0-9]+                    { return NAME; }
+
 . return yytext[0];
 
 %%

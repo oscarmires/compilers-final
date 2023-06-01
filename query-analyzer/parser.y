@@ -5,16 +5,11 @@ int yylex();
 void yyerror(const char *s);
 %}
 
-%token FILE_NAME VERB PREP COND NUM COLUMN COMP LOGICO NUMBER NAME
+%token FILENAME VERB PREP COND_BEGIN COMPARATOR NUMBER NAME
 
 %%
 
-statement:  NAME '=' expression
-    |       expression              { printf("= %d\n", $1); }
-    ;
-expression: expression '+' NUMBER   { $$ = $1 + $3; }
-    |       expression '-' NUMBER   { $$ = $1 - $3; }
-    |       NUMBER                  { $$ = $1; }
+statement:  COND_BEGIN          { printf("Cond begin"); }
     ;
 
 %%
@@ -25,7 +20,25 @@ void yyerror(const char* message) {
 
 
 int main() {
+    /*
+    FILE    *fd;
+
+    if (argc == 2) {
+        if (!(fd = fopen(argv[1], "r"))) {
+            perror("Error: ");
+            return (-1);
+        }
+        yyset_in(fd);
+        yylex();
+        fclose(fd);
+    }
+    else {
+        printf("Usage: a.out filename\n");
+    }
+    */
+
     yyparse();
+
     return 0;
 }
 
