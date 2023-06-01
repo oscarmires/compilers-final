@@ -1,0 +1,7 @@
+.DS_Store
+
+analyzer
+lex.yy.c
+y.tab.c
+y.tab.h
+Ejemplo.l
