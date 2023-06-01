@@ -5,7 +5,7 @@ int yylex();
 void yyerror(const char *s);
 %}
 
-%token NAME NUMBER
+%token FILE_NAME VERB PREP COND NUM COLUMN COMP LOGICO NUMBER NAME
 
 %%
 
@@ -28,3 +28,6 @@ int main() {
     yyparse();
     return 0;
 }
+
+
+/* where points is more than 10 */
