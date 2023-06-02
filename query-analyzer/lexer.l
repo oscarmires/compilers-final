@@ -1,40 +1,56 @@
 %{
 #include "y.tab.h"
-extern int yylval;
+extern YYSTYPE yylval;
 %}
 
 %%
 
-[ \t] ;             /* ignore whitespace */ 
 
-"get" | 
-"select" | 
-"look for" | 
-"find"                          { return VERB; }
+[ \t] ; /* ignore whitespace */   
+
+[Gg]"et" | 
+[Ss]"elect" | 
+[Ll]"ook for" | 
+[Ff]"ind"                          { return VERB; } /* Query start verbs */
 
 "in" | 
-"at" | 
-"from"                          { return PREP; }
+"from"                          { return FILE_PREP; } /* File preposition */
+[a-zA-Z0-9]+\.csv               { yylval.strval = strdup(yytext); return FILENAME; } /* Filename */
 
 "with" |
-"where"                         { return COND_BEGIN; }
+"where"                         { yylval.strval = strdup(yytext); return COND_BEGIN; } /* Condition starts */
 
 "is more than" | 
-"is greater than" | 
+"is greater than"               { return GT; }
+
 "is lower than" | 
 "is less than" | 
-"is lesser than" | 
+"is lesser than" |              { return LT; }
+
 "is equal to" | 
-"is equals" | 
+"is equals"                     { return EQ; }
+
 "is at least" | 
+"is greater or equal to"        { return GTEQ; }
+
 "is at most" | 
-"is greater or equal to" | 
-"is lower or equal to"          { return COMPARATOR; }
+"is lower or equal to"          { return LTEQ; }
 
-[a-zA-Z0-9]+\.csv               { return FILENAME; }
-[0-9]+                          { yylval = atoi(yytext); return NUMBER; }
-[a-zA-Z0-9]+                    { return NAME; }
 
-. return yytext[0];
+"and"                           { return AND; } /* Boolean */
+"or"                            { return OR; }  /* Boolean */
+
+"anything" |
+"all"                           { return ALL; }
+
+"the first"                     { return HEAD; }
+"the last"                      { return TAIL; }
+
+
+[0-9]+                          { yylval.intval = atoi(yytext); return NUMBER; }
+[a-zA-Z0-9]+                    { yylval.strval = strdup(yytext); return NAME; }
+
+\n      return 0;
+.       return yytext[0];
 
 %%
