@@ -12,7 +12,7 @@ void yyerror(const char *s);
 }
 
 %token <intval> FILE_PREP GT LT EQ GTEQ LTEQ AND OR NUMBER HEAD TAIL ALL
-%token <strval> VERB NAME COND_BEGIN FILENAME 
+%token <strval> VERB NAME COND_BEGIN FILENAME
 
 %type <exprstr> comp_op log_expr condition range
 
@@ -41,7 +41,7 @@ range:  HEAD NUMBER NAME {
                     fprintf(stderr, "Memory allocation failed.\n");
                 }
         }
-    |   ALL                                             { $$ = ""; }
+    |   ALL                                         { $$ = ""; }
     ;
 
 
@@ -64,7 +64,7 @@ condition:  condition AND log_expr {
                     fprintf(stderr, "Memory allocation failed.\n");
                 }
             }
-    |       log_expr                                    { $$ = $1; }
+    |       log_expr                                { $$ = $1; }
     ;
 
 /* Logic expression */
