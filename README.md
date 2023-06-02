@@ -2,38 +2,30 @@
 
 Please create a compiler that reads human sentences and generate pandas queries that search over the F1 files from https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020
 
-## Input of the query
+## Download and execute instructions
 
-The way you generate your query is up to you, you can choose and define the grammar that you prefer it just has to be humanly readable and easy to understand, a good example is:
+Requirements:
+- YACC and FLEX
+- a C compiler (preferably `gcc`)
+- (recommended) a Unix-like OS
 
+1. Clone the repo:
+```bash
+git clone https://github.com/oscarmires/compilers-final.git
 ```
-Search all the results in results.csv with more than 10 points and less than 40 laps
+2. Go to the `query-analyzer` directory and make the scripts executable:
 ```
-
-or
-
+chmod 744 compile.sh
+chmod 744 run.sh
 ```
-Retrieve all the results that meet the specified criteria: more than 10 points and less than 40 laps
+3. Compile the lexer and parser files:
 ```
-
-This will go in a file input.txt
-
-Your team can decide how to define your grammar
-
-Once you have your grammar please use YACC and LEX to generate a compiler that must generate the next 2 lines
-
+./compile.sh
 ```
-./mycompiler input.txt
+4. Run the demo (an empty prompt will appear).
 ```
-
-as a result it will print:
-
+./run.sh
 ```
-import pandas as pd
-df = pd.read_csv('results.csv')
-print(df[(df['points'] > 10) & (df["laps"] <= 40)])
-```
+5. Write your query or paste the example found at `input.txt`. Then press enter.
 
-Where results.csv and the logic can change based on the sentence analyzed by your compiler
-
-Have fun!
+You can find the generated Python code in `output/out.py`.
