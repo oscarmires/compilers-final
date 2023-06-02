@@ -31,7 +31,7 @@ range:  HEAD NUMBER NAME {
                 } else {
                     fprintf(stderr, "Memory allocation failed.\n");
                 }
-        }
+        } 
     |   TAIL NUMBER NAME {
             char *result = NULL;
                 asprintf(&result, ".tail(%d)", $2);

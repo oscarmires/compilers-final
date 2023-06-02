@@ -15,7 +15,7 @@ extern YYSTYPE yylval;
 
 "in" | 
 "from"                          { return FILE_PREP; } /* File preposition */
-[a-zA-Z0-9]+\.csv               { yylval.strval = strdup(yytext); return FILENAME; } /* Filename */
+[a-zA-Z0-9_]+\.csv               { yylval.strval = strdup(yytext); return FILENAME; } /* Filename */
 
 "with" |
 "where"                         { yylval.strval = strdup(yytext); return COND_BEGIN; } /* Condition starts */
