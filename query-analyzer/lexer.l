@@ -21,14 +21,16 @@ extern YYSTYPE yylval;
 "where"                         { yylval.strval = strdup(yytext); return COND_BEGIN; } /* Condition starts */
 
 "is more than" | 
+"is above" | 
 "is greater than"               { return GT; }
 
 "is lower than" | 
-"is less than" | 
+"is less than" |
+"is below" | 
 "is lesser than" |              { return LT; }
 
 "is equal to" | 
-"is equals"                     { return EQ; }
+"equals"                     { return EQ; }
 
 "is at least" | 
 "is greater or equal to"        { return GTEQ; }
@@ -41,6 +43,7 @@ extern YYSTYPE yylval;
 "or"                            { return OR; }  /* Boolean */
 
 "anything" |
+"everything" |
 "all"                           { return ALL; }
 
 "the first"                     { return HEAD; }

@@ -1,1 +1,1 @@
-Find anything in results.csv where points is greater than 4 and laps is less than 40
+Find anything in results.csv where points is greater than 4 and laps is greater or equal to 40
