@@ -95,24 +95,6 @@ void yyerror(const char* message) {
 
 
 int main() {
-    /*
-    FILE    *fd;
-
-    if (argc == 2) {
-        if (!(fd = fopen(argv[1], "r"))) {
-            perror("Error: ");
-            return (-1);
-        }
-        yyset_in(fd);
-        yylex();
-        fclose(fd);
-    }
-    else {
-        printf("Usage: a.out filename\n");
-    }
-    */
-
     yyparse();
-
     return 0;
 }
